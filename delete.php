@@ -1,11 +1,18 @@
 <?php
 require 'database.php';
 
-if (isset($_GET['id'])) {
-    $id = $_GET['id'];
-    $stmt = $pdo->prepare("DELETE FROM registros WHERE id = :id");
-    $stmt->execute([':id' => $id]);
+$id = $_GET['id'] ?? null;
+if (!$id) {
+    die("ID inválido.");
 }
 
-header("Location: form.php");
-exit();
+$sql = "DELETE FROM usuarios WHERE id = :id";
+$stmt = $pdo->prepare($sql);
+$stmt->bindParam(':id', $id);
+
+if ($stmt->execute()) {
+    echo "<script>alert('Usuário excluído com sucesso!'); window.location.href='select.php';</script>";
+} else {
+    echo "<script>alert('Erro ao excluir usuário!');</script>";
+}
+?>

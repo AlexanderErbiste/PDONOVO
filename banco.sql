@@ -1,16 +1,11 @@
-CREATE DATABASE PROJETOPDO;
-USE PROJETOPDO;
+-- Criando o banco de dados
+CREATE DATABASE projetopdo;
+USE projetopdo;
 
-CREATE TABLE TB_USUARIO
-(
-	ID_USUARIO INT PRIMARY KEY AUTO_INCREMENT,
-    NOME_USUARIO VARCHAR(100),
-    EMAIL_USUARIO VARCHAR(100)
+-- Criando a tabela usuarios
+CREATE TABLE usuarios (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL,
+    email VARCHAR(100) NOT NULL,
+    telefone VARCHAR(20) NOT NULL
 );
-
-INSERT INTO TB_USUARIO(NOME_USUARIO, EMAIL_USUARIO)
-VALUES('Alexander', 'alexander@email.com'),
-('Waltinho', 'waltinho2@email.com'),
-('Weliton', 'welintonto@calvo.com');
-
-SELECT * FROM TB_USUARIO;

@@ -1,43 +1,22 @@
 <?php
-    //vincular o arquivo conexao
-include('database.php');
+require 'database.php';
 
-    //GET
-// var_dump($_GET);
-$nome = $_GET["nome"];
-$email = $_GET["email"];
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $nome = $_POST['nome'];
+    $email = $_POST['email'];
+    $telefone = $_POST['telefone'];
 
-    //variável que simula comando SQL
-// $sqlInsert = "INSERT INTO TB_USUARIO( NOME_US, EMAIL_US) 
-//                 VALUES(\"$nome\", '$email'); ";
+    $sql = "INSERT INTO usuarios (nome, email, telefone) VALUES (:nome, :email, :telefone)";
+    $stmt = $pdo->prepare($sql);
+    
+    $stmt->bindParam(':nome', $nome);
+    $stmt->bindParam(':email', $email);
+    $stmt->bindParam(':telefone', $telefone);
 
-// if ( $con->exec($sqlInsert)){
-//     echo "INSERIDO!!!";
-//     echo "<br>";
-//     echo "id" . $con->lastInsertId();
-// }else{
-//     echo "ESTUDAR MAIS!!!";
-// }
-
-// if ( $con->query($sqlInsert)){
-//     echo "INSERIDO!!!";
-//     echo "<br>";
-//     echo "id" . $con->lastInsertId();
-// }else{
-//     echo "ESTUDAR MAIS!!!";
-// }
-
-// -------------------------------
-
-$sqlInsert = "INSERT INTO TB_USUARIO( NOME_US, EMAIL_US) 
-        VALUES( ? , ? ); ";
-
-        $stmt = $con->prepare($sqlInsert);
-        $bool = $stmt->execute([$nome, $email]);
-        if($bool){
-            echo "INSERIDO!!!";
-        }else{
-            echo "ESTUDAR MAIS!!!";
-        }
-
+    if ($stmt->execute()) {
+        echo "<script>alert('Usuário cadastrado com sucesso!'); window.location.href='select.php';</script>";
+    } else {
+        echo "<script>alert('Erro ao cadastrar!');</script>";
+    }
+}
 ?>

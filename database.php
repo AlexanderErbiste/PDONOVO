@@ -1,18 +1,13 @@
 <?php
-$servername = "localhost";
-$username = "root";
-$password = "";
-$db = "pdoprojeto";
+$host = 'localhost';
+$dbname = 'projetopdo';
+$user = 'root';
+$pass = '';
 
-try{
-
-    $con = new PDO("mysql:host=$servername;dbname=$db", $username, $password);
-    $con->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    echo " Conectado!!!";
-
-}catch(PDOException $er){
-    echo "erro" .$er->getMessage();
+try {
+    $pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8", $user, $pass);
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+} catch (PDOException $e) {
+    die("Erro de conexão: " . $e->getMessage());
 }
-
-
 ?>
